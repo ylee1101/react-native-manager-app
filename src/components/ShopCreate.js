@@ -5,8 +5,21 @@ import { Card, CardSection, Input, Button } from "./common";
 import { connect } from "react-redux"; //For add section
 import { shopUpdate, shopCreate } from "../actions"; //For add section
 import ShopForm from './ShopForm';
+import _ from "lodash";
+
 
 class ShopCreate extends Component {
+  componentWillMount() {
+    const clearData ={
+      name: "",
+      phone: "",
+      shift: "",
+    };
+    _.each(clearData, (value, prop) => {
+      this.props.shopUpdate({ prop, value })
+    })
+  }
+
   onButtonPress() {
     const { name, phone, shift } = this.props;
 
