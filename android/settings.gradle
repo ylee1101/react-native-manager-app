@@ -1,0 +1,3 @@
+rootProject.name = 'inspector_mobile'
+
+include ':app'
