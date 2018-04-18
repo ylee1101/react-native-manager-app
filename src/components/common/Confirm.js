@@ -1,56 +1,48 @@
-import React, { Component } from "react";
-import { Modal, StyleSheet, Text, View } from "react-native";
-import { CardSection } from "./CardSection";
-import { Button } from "./Button";
+import React from 'react';
+import { Text, View, Modal } from 'react-native';
+import { CardSection } from './CardSection';
+import { Button } from './Button';
 
-class Confirm extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-      const { containerStyle, textStyle, cardSectionStyle } = styles;
-
-    return (
-      <Modal
-        visible={this.props.visible}
-        transparent
-        animationType="slide"
-        onRequestClose={() => {}}
-      >
-        <View style={containerStyle}>
+const Confirm = ({ children, visible, onAccept, onDecline }) => {
+  const { containerStyle, textStyle, cardSectionStyle} = styles;
+  return (
+    <Modal
+      animationType="slide"
+      onRequestClose={() => {}}
+      transparent
+      visible={visible}
+    >
+      <View style={containerStyle}>
           <CardSection style={cardSectionStyle}>
             <Text style={textStyle}>
-                {this.props.children} 
+              {children}
             </Text>
           </CardSection>
-
           <CardSection>
-              <Button onPress={this.props.onAccept}>Yes</Button>
-              <Button onPress={this.props.onDecline}>No</Button>
+            <Button onPress={onAccept}>YES</Button>
+            <Button onPress={onDecline}>NO</Button>
           </CardSection>
-        </View>
-      </Modal>
-    );
-  }
-}
+      </View>
+    </Modal>
+  );
+};
 
-const styles = StyleSheet.create({
-    cardSectionStyle: {
-        justifyContent: 'center'
-    },
-    textStyle: {
-        flex: 1,
-        fontSize: 18,
-        textAlign: 'center',
-        lineHeight: 40
-    },
-    containerStyle: {
-        backgroundColor: 'rgba(0, 0, 0, 0.75)',
-        position: 'relative',
-        flex: 1,
-        justifyContent: 'center'  //it means everything inside of this container should be centered
-    }
-});
+const styles = {
+  cardSectionStyle: {
+    justifyContent: 'center'
+  },
+  textStyle: {
+    flex: 1,
+    fontSize: 18,
+    textAlign: 'center',
+    lineHeight: 40
+  },
+  containerStyle: {
+    backgroundColor: 'rgba(0,0,0,0.75)',
+    position: 'relative',
+    flex: 1,
+    justifyContent: 'center'
+  }
+};
 
 export { Confirm };

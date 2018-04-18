@@ -1,92 +1,89 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from "react-native";
-import { Card, CardSection, Input, Button, Spinner } from './common';
+import { Text } from 'react-native';
 import { connect } from 'react-redux';
 import { emailChanged, passwordChanged, loginUser } from '../actions';
+import { Card, CardSection, Input, Button, Spinner } from './common';
 
 class LoginForm extends Component {
-    onEmailChange(text) {
-        this.props.emailChanged(text);
+  onEmailChange(text) {
+    this.props.emailChanged(text);
+  }
 
-    }
+  onPasswordChange(text) {
+    this.props.passwordChanged(text);
+  }
 
-    onPasswordChange(text) {
-        this.props.passwordChanged(text);
-    }
+  onButtonPress() {
+    const { email, password } = this.props;
+    const navigationProps = this.props.navigation;
+    this.props.loginUser({ email, password, navigationProps });
+  }
 
-    onButtonPress() {
-        const { email, password } = this.props;
-
-        this.props.loginUser({ email, password })
-    }
-
-    renderError() {
-        if (this.props.error) {
-            return (
-                <View style={{ backgroundColor: 'white' }}>
-                    <Text style={styles.errorTextStyle}>
-                        {this.props.error}
-                    </Text>
-                </View>
-            )
-        }
-    }
-
-    renderButton() {
-        if (this.props.loading) {
-            return <Spinner size="large" />
-        }
-
-        return (
-            <Button onPress={this.onButtonPress.bind(this)}>Login</Button>
-        )
-    }
+  renderButton() {
+    if (this.props.loading) {
+      return <Spinner size="large" />;
+    } 
+    return (
+      <Button
+        onPress={this.onButtonPress.bind(this)}
+      >
+        login
+      </Button>
+    );
+  }
 
   render() {
     return (
-        <Card>
-            <CardSection>
-                <Input
-                    label="Email"
-                    placeholder="email@gmail.com"
-                    onChangeText={this.onEmailChange.bind(this)}
-                    value={this.props.email}
-                />
-            </CardSection>
-            <CardSection>
-                <Input
-                    secureTextEntry //to display pw as a dot
-                    label="Password"
-                    placeholder="password"
-                    onChangeText={this.onPasswordChange.bind(this)}
-                    value={this.props.password}
-                />
-            </CardSection>
+      <Card>
+        <CardSection>
+          <Input 
+            label="email" 
+            placeholder="email@gg.com" 
+            onChangeText={this.onEmailChange.bind(this)}
+            value={this.props.email}
+            
+          />
+        </CardSection>
 
-            {this.renderError()}
+        <CardSection>
+          <Input 
+            secureTextEntry 
+            label="paswword" 
+            placeholder="password" 
+            onChangeText={this.onPasswordChange.bind(this)}
+            value={this.props.password}
+          />
+        </CardSection>
+        
+        <Text style={styles.errorTextStyle}>
+          {this.props.error}
+        </Text>
 
-            <CardSection>
-                {this.renderButton()}
-            </CardSection>
-        </Card>
+        <CardSection>
+          
+          {this.renderButton()}
+        </CardSection>
+      </Card>
     );
   }
 }
 
-const mapStateToProps = ({ auth }) => {
-    const { email, password, error, loading } = auth;
-
-    return { email, password, error, loading }
-}
-
-const styles = StyleSheet.create({
+const styles = {
   errorTextStyle: {
     fontSize: 20,
-    alignSelf: "center",
+    alignSelf: 'center',
     color: 'red'
   }
-});
+
+};
+
+const mapStateToProps = ({ auth }) => {
+  const { email, password, error, loading } = auth;
+  
+  return { email, password, error, loading };
+};
 
 export default connect(mapStateToProps, { 
-    emailChanged, passwordChanged, loginUser 
-})(LoginForm);
+  emailChanged, 
+  passwordChanged,
+  loginUser })(LoginForm);

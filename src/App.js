@@ -1,47 +1,42 @@
-import React, { Component } from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
-import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
-import reducers from "./reducers";
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ * @flow
+ */
+
+import React, { Component } from 'react';
 import firebase from 'firebase';
-import LoginForm from './components/LoginForm';
 import ReduxThunk from 'redux-thunk';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import reducers from './reducers';
+//import LoginForm from './components/LoginForm'; I'll leave it for test purposes
 import Router from './Router';
 
-export default class App extends Component {
-  componentDidMount() {
+class App extends Component {
+  componentWillMount() {
     const config = {
-      apiKey: "AIzaSyBicVyOLuadtaHMDVkdEN7GKklPbANPn5o",
-      authDomain: "inspector-mobile-2403d.firebaseapp.com",
-      databaseURL: "https://inspector-mobile-2403d.firebaseio.com",
-      projectId: "inspector-mobile-2403d",
-      storageBucket: "inspector-mobile-2403d.appspot.com",
-      messagingSenderId: "60818930595"
+      apiKey: 'AIzaSyD8n9-pT8QC1FKP1Nya57TyIxHRQ3oW_NA',
+      authDomain: 'manager-790a5.firebaseapp.com',
+      databaseURL: 'https://manager-790a5.firebaseio.com',
+      projectId: 'manager-790a5',
+      storageBucket: '',
+      messagingSenderId: '189135050821'
     };
     firebase.initializeApp(config);
   }
 
+  
   render() {
-      const store = createStore(reducers, {}, applyMiddleware(ReduxThunk))
-
+    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+    
     return (
-      <Provider store={store} >
+      <Provider store={store}>
         <Router />
       </Provider>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F5FCFF"
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10
-  }
-});
+
+export default App;

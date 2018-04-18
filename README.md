@@ -5,3 +5,4 @@ npm i react-native-router-flux --save
  npm install react-native-communications
  npm install --save react-native-communications
  
+ this app is for inspector app

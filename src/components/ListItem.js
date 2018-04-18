@@ -1,27 +1,22 @@
-import React, { Component } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  ListView,
-  TouchableWithoutFeedback
-} from "react-native";
-import { Actions } from 'react-native-router-flux';
-import { CardSection } from "./common";
+import React, { Component } from 'react';
+import { Text, TouchableWithoutFeedback, View } from 'react-native';
+import { CardSection } from '../components/common';
 
 class ListItem extends Component {
-    onRowPress(){
-        Actions.shopEdit({ shop: this.props.shop })  //check Router.js Scene key main 
-    }
-
+  onRowPress() {
+  //this.props.navi.navigate('employeeCreate', { employee: this.props.employee });
+       
+  }
+  
   render() {
-    const { name } = this.props.shop.item;
-
+    const { name } = this.props.employee;
     return (
-      <TouchableWithoutFeedback onPress={this.onRowPress.bind(this)}>
+      <TouchableWithoutFeedback onPress={() => this.props.onRowPress(this.props.employee)}>
         <View>
           <CardSection>
-            <Text style={styles.titleStyle}>{name}</Text>
+            <Text style={styles.titleStyle}>
+              { name }
+            </Text>
           </CardSection>
         </View>
       </TouchableWithoutFeedback>
@@ -29,11 +24,11 @@ class ListItem extends Component {
   }
 }
 
-const styles = StyleSheet.create({
+const styles = {
   titleStyle: {
-    fontSize: 18,
+    fontSize: 28,
     paddingLeft: 15
   }
-});
+};
 
 export default ListItem;

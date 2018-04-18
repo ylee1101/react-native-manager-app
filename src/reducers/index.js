@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import AuthReducer from './AuthReducer';
-import ShopFormReducer from './ShopFormReducer'; //For add section
-import ShopReducer from './ShopReducer'; //For add section
+import EmployeeFormReducer from './EmployeeFormReducer';
+import EmployeeReducer from './EmployeeReducer';
 
 export default combineReducers({
-    auth: AuthReducer,
-    shopForm: ShopFormReducer, //For add section
-    shops: ShopReducer //For add section
+   auth: AuthReducer,
+   employeeForm: EmployeeFormReducer,
+   employees: EmployeeReducer
 });

@@ -1,41 +1,27 @@
-import React, { Component } from "react";
-import { StyleSheet, View, TextInput, Text } from "react-native";
-// import { Button, Card, CardSection } from "./common";
+import React from 'react';
+import { TextInput, View, Text } from 'react-native';
 
-class Input extends Component {
-  constructor(props) {
-    super(props);
-  }
+const Input = ({ label, value, onChangeText, placeholder, secureTextEntry }) => {
+  const { inputStyle, labelStyle, containerStyle } = styles;
 
-  render() {
-    const {
-      label,
-      value,
-      onChangeText,
-      placeholder,
-      secureTextEntry
-    } = this.props;
-    const { inputStyle, labelStyle, containerStyle } = styles;
+  return (
+    <View style={containerStyle}>
+      <Text style={labelStyle}>{label}</Text>
+      <TextInput
+        secureTextEntry={secureTextEntry}
+        placeholder={placeholder}
+        autoCorrect={false}
+        style={inputStyle}
+        value={value}
+        onChangeText={onChangeText}
+      />
+    </View>
+  );
+};
 
-    return (
-      <View style={containerStyle}>
-        <Text style={labelStyle}>{label}</Text>
-        <TextInput
-          secureTextEntry={secureTextEntry}
-          placeholder={placeholder}
-          autoCorrect={false}
-          style={inputStyle}
-          value={value}
-          onChangeText={onChangeText}
-        />
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
+const styles = {
   inputStyle: {
-    color: "#000",
+    color: '#000',
     paddingRight: 5,
     paddingLeft: 5,
     fontSize: 18,
@@ -43,16 +29,16 @@ const styles = StyleSheet.create({
     flex: 2
   },
   labelStyle: {
-    paddingLeft: 20,
     fontSize: 18,
+    paddingLeft: 20,
     flex: 1
   },
   containerStyle: {
     height: 40,
     flex: 1,
-    flexDirection: "row", //to make input and label align in same row
-    alignItems: "center"
+    flexDirection: 'row',
+    alignItems: 'center'
   }
-});
+};
 
 export { Input };

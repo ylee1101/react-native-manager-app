@@ -1,23 +1,21 @@
-import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React from 'react';
+import { View } from 'react-native';
 
-class Card extends Component {
-  constructor(props) {
-    super(props);
-  }
+const Card = (props) => {
+  return (
+    <View style={styles.containerStyle}>
+      {props.children}
+    </View>
+  );
+};
 
-  render() {
-    return <View style={styles.containerStyle}>{this.props.children}</View>;
-  }
-}
-
-const styles = StyleSheet.create({
+const styles = {
   containerStyle: {
     borderWidth: 1,
     borderRadius: 2,
-    borderColor: "#ddd",
+    borderColor: '#ddd',
     borderBottomWidth: 0,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 2,
@@ -26,6 +24,6 @@ const styles = StyleSheet.create({
     marginRight: 5,
     marginTop: 10
   }
-});
+};
 
 export { Card };

@@ -1,57 +1,47 @@
-import firebase from "firebase";
-import { Actions } from "react-native-router-flux";
-import {
-  EMAIL_CHANGED,
+import firebase from 'firebase';
+
+import { 
+  EMAIL_CHANGED, 
   PASSWORD_CHANGED,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
   LOGIN_USER
-} from "./types";
+} from './types';
 
-export const emailChanged = text => {
+export const emailChanged = (text) => {
   return {
     type: EMAIL_CHANGED,
     payload: text
   };
 };
 
-export const passwordChanged = text => {
+export const passwordChanged = (text) => {
   return {
     type: PASSWORD_CHANGED,
     payload: text
   };
 };
 
-export const loginUser = ({ email, password }) => {
-  return dispatch => {
+export const loginUser = ({ email, password, navigationProps }) => {
+  return (dispatch) => {
     dispatch({ type: LOGIN_USER });
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(user => loginUserSuccess(dispatch, user))
-      .catch(error => {
-        console.log(error);
-        firebase
-          .auth()
-          .createUserWithEmailAndPassword(email, password)
-          .then(user => loginUserSuccess(dispatch, user))
-          .catch(() => loginUserFail(dispatch));
-      });
+
+  firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(user => loginUserSuccess(dispatch, user, navigationProps))
+    .catch(() => loginUserFail(dispatch));
   };
 };
-
-// this is where we know that user has successfully logged into our app
-const loginUserSuccess = (dispatch, user) => {
+const loginUserFail = (dispatch) => {
+  dispatch({
+    type: LOGIN_USER_FAIL 
+  });
+};
+  
+const loginUserSuccess = (dispatch, user, navigationProps) => {
   dispatch({
     type: LOGIN_USER_SUCCESS,
     payload: user
   });
-
-  Actions.main(); //Actions.scene name from Router.js automatically navigate us over
-};
-
-const loginUserFail = dispatch => {
-  dispatch({
-    type: LOGIN_USER_FAIL
-  });
+  navigationProps.navigate('employees');
+ // this.props.navigation.navigate('employees');
 };

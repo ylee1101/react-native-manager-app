@@ -1,27 +1,20 @@
-import React, { Component } from "react";
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import React from 'react';
+import { View, ActivityIndicator } from 'react-native';
 
-class Spinner extends Component {
-  constructor(props) {
-    super(props);
-  }
+const Spinner = ({ size }) => {
+  return (
+    <View style={styles.spinnerStyle}>
+      <ActivityIndicator size={size || 'large'} />
+    </View>
+  );
+};
 
-  render() {
-    const { size } = this.props;
-    return (
-      <View style={styles.spinnerStyle}>
-        <ActivityIndicator size={size || "large"} />
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
+const styles = {
   spinnerStyle: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
+    justifyContent: 'center',
+    alignItems: 'center'
   }
-});
+};
 
 export { Spinner };
